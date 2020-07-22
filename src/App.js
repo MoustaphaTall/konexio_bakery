@@ -27,7 +27,8 @@ class App extends Component {
       [input]: price
     });
     this.setState({
-      items
+      items,
+      activeTab: "list"
     });
     // console.log(items);
   }
