@@ -20,13 +20,14 @@ class Add extends Component {
             <form>
                 <div className="form-group row">
                     <input 
-                        type="text" 
+                        type="text"
+                        value={this.state.input} 
                         className="form-control col-8"  
                         placeholder="Item"
                         onChange={this.onInputItems}                            
                     />
                     <button 
-                        type="button" 
+                        type="reset" 
                         className="btn btn-primary"
                         onClick={this.onSubmit}>Add</button>
                 </div>
@@ -35,10 +36,10 @@ class Add extends Component {
     }
 
     onInputItems(evt) {
-        const input = evt.target.value;        
+        let input = evt.target.value;        
         this.setState({
             input
-        });
+        });        
     }
     
     onSlidePrices(price) {
@@ -47,8 +48,8 @@ class Add extends Component {
         });
     }
 
-    onSubmit() {        
-        console.log("price", this.state.price, "/ input", this.state.input);
+    onSubmit() {  
+        this.props.onAdd(this.state.price, this.state.input);        
         this.setState({
             input: "",
             price: 1
@@ -56,7 +57,7 @@ class Add extends Component {
     }
 
     render() {  
-        console.log("price", this.state.price, "/ input", this.state.input);      
+        // console.log("price", this.state.price, "/ input", this.state.input);      
         return (            
             <div>
                 {this.renderForm()}

@@ -21,8 +21,15 @@ class App extends Component {
     this.onAdd = this.onAdd.bind(this);
   }
 
-  onAdd(price, input) {
-
+  onAdd(price, input) {    
+    const items = this.state.items;
+    items.push({
+      [input]: price
+    });
+    this.setState({
+      items
+    });
+    // console.log(items);
   }
 
   onClickTabAdd() {        
@@ -56,8 +63,8 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="col-8">
-            {activeTab === "add" ? <Add onAdd={this.onAdd()} /> : null}
-            {activeTab === "list" ? <List /> : null}
+            {activeTab === "add" ? <Add onAdd={this.onAdd} /> : null}
+            {activeTab === "list" ? <List items={this.state.items} /> : null}
             {activeTab === "pay" ? <Pay /> : null}
           </div>
         </div>        
