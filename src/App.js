@@ -9,10 +9,10 @@ import 'rc-slider/assets/index.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       activeTab: "add",
-      items: [],         
+      items: [],
     }
 
     this.onClickTabAdd = this.onClickTabAdd.bind(this);
@@ -21,54 +21,56 @@ class App extends Component {
     this.onAdd = this.onAdd.bind(this);
   }
 
-  onAdd(price, input) {    
+  onAdd(price, input) {
     const items = this.state.items;
+
     items.push({
-      [input]: price
+      name: input,
+      price
     });
     this.setState({
       items,
       activeTab: "list"
     });
-    // console.log(items);
+    console.log(items);
   }
 
-  onClickTabAdd() {        
+  onClickTabAdd() {
     this.setState({
-      activeTab: "add",      
-    });       
+      activeTab: "add",
+    });
   }
 
   onClickTabList() {
     this.setState({
       activeTab: "list",
-    });        
+    });
   }
 
   onClickTabPay() {
     this.setState({
-      activeTab: "pay",      
-    });    
+      activeTab: "pay",
+    });
   }
 
   render() {
-    const activeTab = this.state.activeTab;    
+    const activeTab = this.state.activeTab;
     return (
       <div className="container">
         <div className="row">
           <div className="col-4">
             <Button isSelected={activeTab === "add"} onClick={this.onClickTabAdd}>Add</Button>
             <Button isSelected={activeTab === "list"} onClick={this.onClickTabList}>List</Button>
-            <Button isSelected={activeTab === "pay"} onClick={this.onClickTabPay}>Pay</Button>            
+            <Button isSelected={activeTab === "pay"} onClick={this.onClickTabPay}>Pay</Button>
           </div>
         </div>
         <div className="row">
-          <div className="col-8">
-            {activeTab === "add" ? <Add onAdd={this.onAdd} /> : null}
+          <div className="col-8 mt-3">
+            {activeTab === "add" ? <Add onAdd={this.onAdd} /> : null}            
             {activeTab === "list" ? <List items={this.state.items} /> : null}
             {activeTab === "pay" ? <Pay /> : null}
           </div>
-        </div>        
+        </div>
       </div>
     );
   }
