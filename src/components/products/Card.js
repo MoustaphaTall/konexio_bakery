@@ -11,17 +11,21 @@ class Card extends Component {
     }
 
     componentDidMount() {
-        fetch("http://konexio.codiscovery.co/bakery/api/?q=croissant")
+        const item = this.props.item;
+        fetch(`http://konexio.codiscovery.co/bakery/api/?q=${item}`)
             .then(result => result.json())
-            .then(result => this.setState({ source: result.source }));
+            // .then(result => console.log(result))            
+            .then(result => this.setState({ source: result.source }))
+
     }
 
     render() {
         return (
-            <button className="btn btn-light">
-                <img src={this.state.source} alt="product" />
-            </button>
-
+            <div className="col-6">
+                <button className="btn btn-light" onClick={this.props.onClickFn}>
+                    <img className="img-fluid" style={{ height: 250 }} src={this.state.source ? this.state.source : specimen} alt="product" />
+                </button>
+            </div>
         );
     }
 }

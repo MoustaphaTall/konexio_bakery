@@ -32,7 +32,7 @@ class App extends Component {
       items,
       activeTab: "list"
     });
-    console.log(items);
+    // console.log(items);    
   }
 
   onClickTabAdd() {
@@ -53,7 +53,7 @@ class App extends Component {
     });
   }
 
-  render() {
+  render() {    
     const activeTab = this.state.activeTab;
     return (
       <div className="container">
@@ -66,9 +66,9 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="col-8 mt-3">
-            {activeTab === "add" ? <Add onAdd={this.onAdd} /> : null}            
+            {activeTab === "add" ? <Add onAdd={this.onAdd} items={this.state.items} /> : null}            
             {activeTab === "list" ? <List items={this.state.items} /> : null}
-            {activeTab === "pay" ? <Pay /> : null}
+            {activeTab === "pay" ? <Pay items={this.state.items} /> : null}
           </div>
         </div>
       </div>
