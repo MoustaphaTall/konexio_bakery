@@ -23,7 +23,11 @@ class Card extends Component {
         return (
             <div className="col-6">
                 <button className="btn btn-light" onClick={this.props.onClickFn}>
-                    <img className="img-fluid" style={{ height: 250 }} src={this.state.source ? this.state.source : specimen} alt="product" />
+                    <img 
+                        className="img-fluid" 
+                        src={this.state.source ? this.state.source : specimen} 
+                        alt="product" 
+                    />
                 </button>
             </div>
         );

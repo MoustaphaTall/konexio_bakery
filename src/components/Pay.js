@@ -14,24 +14,6 @@ class Pay extends Component {
         }
     }
 
-    onClickProduct(name, price) {
-        let total = this.state.total;
-        let totalVat = this.state.totalVat;
-        let totalAfterTax = this.state.totalAfterTax;
-        let totalEcoTax = this.state.totalEcoTax;
-        const ecoTax = 0.03;
-
-        total += price;
-        totalAfterTax += price + ecoTax - ((price + ecoTax) * 20 / 100)
-        totalEcoTax += ecoTax;
-
-        this.setState({
-            total,
-            totalAfterTax,
-            totalEcoTax
-        });
-    }
-
     componentDidMount() {
         const items = this.props.items;
         const basket = this.state.basket;
@@ -41,6 +23,26 @@ class Pay extends Component {
             basket
         });
     }
+
+    onClickProduct(name, price) {
+        let total = this.state.total;
+        let totalVat = this.state.totalVat;
+        let totalAfterTax = this.state.totalAfterTax;
+        let totalEcoTax = this.state.totalEcoTax;
+        const ecoTax = 0.03;
+
+        total += price;
+        const totalAfterTaxRaw = price + ecoTax - ((price + ecoTax) * 20 / 100);
+        totalAfterTax += parseInt(totalAfterTaxRaw * 100) / 100;
+        totalEcoTax += ecoTax;
+
+        this.setState({
+            total,
+            totalAfterTax,
+            totalEcoTax
+        });
+    }
+
 
     renderCards() {
         const basket = this.state.basket;
@@ -55,15 +57,26 @@ class Pay extends Component {
         });
     }
 
+    renderTotal() {
+        const basket = this.state.basket;
+        if (basket.length === 0) {
+            return <h2>No items available</h2>
+        }
+
+        return (
+            <div className="col-12" style={{ textAlign: "right", fontSize: "1.3em" }}>
+                <p>Subtotal : {this.state.total} €</p>
+                <p>Total After Tax : {this.state.totalAfterTax} €</p>
+                <p>EcoTax : {this.state.totalEcoTax} €</p>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col">
-                        <p>Subtotal : {this.state.total} €</p>
-                        <p>TotalAfterTax : {this.state.totalAfterTax} €</p>
-                        <p>EcoTax : {this.state.totalEcoTax} €</p>
-                    </div>
+                    {this.renderTotal()}
                 </div>
                 <div className="row">
                     {this.renderCards()}

@@ -7,7 +7,8 @@ class Add extends Component {
 
         this.state = {
             input: "",
-            price: 1
+            price: 1,
+            inputInvalid: null
         }
 
         this.onInputItems = this.onInputItems.bind(this);
@@ -15,19 +16,47 @@ class Add extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    onInputItems(evt) {
+        let input = evt.target.value;
+        this.setState({
+            input
+        });
+    }
+
+    onSlidePrices(price) {
+        this.setState({
+            price
+        });
+    }
+
+    onSubmit() {
+        if (!this.state.input) {
+            this.setState({
+                inputInvalid: "is-invalid"
+            });
+            return;
+        }
+        this.props.onAdd(this.state.price, this.state.input);
+        this.setState({
+            input: "",
+            price: 1
+        });
+    }
+
     renderForm() {
+        const inputInvalid = this.state.inputInvalid;
         return (
             <form>
                 <div className="form-group row">
-                    <input 
+                    <input
                         type="text"
-                        value={this.state.input} 
-                        className="form-control col-8"  
+                        value={this.state.input}
+                        className={`form-control col-8 ${inputInvalid}`}
                         placeholder="Item"
-                        onChange={this.onInputItems}                            
+                        onChange={this.onInputItems}                        
                     />
-                    <button 
-                        type="reset" 
+                    <button
+                        type="reset"
                         className="btn btn-primary"
                         onClick={this.onSubmit}>Add</button>
                 </div>
@@ -35,40 +64,19 @@ class Add extends Component {
         );
     }
 
-    onInputItems(evt) {
-        let input = evt.target.value;        
-        this.setState({
-            input
-        });        
-    }
-    
-    onSlidePrices(price) {
-        this.setState({
-            price
-        });
-    }
-
-    onSubmit() {  
-        this.props.onAdd(this.state.price, this.state.input);        
-        this.setState({
-            input: "",
-            price: 1
-        });
-    }
-
-    render() {  
+    render() {
         // console.log("price", this.state.price, "/ input", this.state.input);      
-        return (            
+        return (
             <div>
                 {this.renderForm()}
                 <p>{this.state.price} €</p>
-                <Slider 
+                <Slider
                     min={1}
                     max={10}
                     value={this.state.price}
-                    onChange={this.onSlidePrices} 
+                    onChange={this.onSlidePrices}
                 />
-            </div>                                
+            </div>
         );
     }
 }
