@@ -82,17 +82,17 @@ class Pay extends Component {
     }
 
     renderTotal() {
-        const basket = this.state.basket;
+        const { basket, total, totalEcoTax, totalVat, totalAfterTax } = this.state;
         if (basket.length === 0) {
             return <h2>No items available</h2>
         }
 
         return (
             <div className="col-12" style={{ textAlign: "right", fontSize: "1.3em" }}>
-                <p>Subtotal : {this.state.total} €</p>                
-                <p>Ecotax : {this.state.totalEcoTax} €</p>
-                <p>VAT : {this.state.totalVat} €</p>
-                <h3>Total: {this.state.totalAfterTax} €</h3>                
+                <p>Subtotal : {total} €</p>                
+                <p>Ecotax : {parseInt(totalEcoTax * 100) / 100} €</p>
+                <p>VAT : {parseInt(totalVat * 100) / 100} €</p>
+                <h3>Total: {parseInt(totalAfterTax * 100) / 100} €</h3>                
             </div>
         );
     }
@@ -103,6 +103,11 @@ class Pay extends Component {
         
         return (
             <div className="container">
+                <div className="row">
+                    <div className="col-12">                        
+                        <h2>Pay</h2>                    
+                    </div>
+                </div>
                 <div className="row">
                     {this.renderItemCounts()}
                 </div>
