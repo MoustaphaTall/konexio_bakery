@@ -54,7 +54,7 @@ class App extends Component {
   }
 
   render() {    
-    const activeTab = this.state.activeTab;
+    const { activeTab } = this.state;
     return (
       <div className="container">
         <div className="row">
@@ -66,9 +66,9 @@ class App extends Component {
         </div>
         <div className="row">
           <div className="col-8 mt-3">
-            {activeTab === "add" ? <Add onAdd={this.onAdd} items={this.state.items} /> : null}            
-            {activeTab === "list" ? <List items={this.state.items} /> : null}
-            {activeTab === "pay" ? <Pay items={this.state.items} /> : null}
+            {activeTab === "add" && <Add onAdd={this.onAdd} items={this.state.items} />}            
+            {activeTab === "list" && <List items={this.state.items} />}
+            {activeTab === "pay" && <Pay items={this.state.items} />}
           </div>
         </div>
       </div>
