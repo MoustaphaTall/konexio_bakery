@@ -11,7 +11,7 @@ class Card extends Component {
     }
 
     componentDidMount() {
-        const item = this.props.item;
+        const { item } = this.props;
         fetch(`http://konexio.codiscovery.co/bakery/api/?q=${item}`)
             .then(result => result.json())
             // .then(result => console.log(result))            

@@ -82,10 +82,7 @@ class Pay extends Component {
     }
 
     renderTotal() {
-        const { basket, total, totalEcoTax, totalVat, totalAfterTax } = this.state;
-        if (basket.length === 0) {
-            return <h2>No items available</h2>
-        }
+        const { total, totalEcoTax, totalVat, totalAfterTax } = this.state;        
 
         return (
             <div className="col-12" style={{ textAlign: "right", fontSize: "1.3em" }}>
@@ -100,7 +97,10 @@ class Pay extends Component {
     render() {
         const {basket } = this.state;
         console.log(basket);
-        
+        if (basket.length === 0) {
+            return <h2>No items available</h2>
+        }
+
         return (
             <div className="container">
                 <div className="row">
